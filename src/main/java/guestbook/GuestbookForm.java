@@ -15,6 +15,7 @@
  */
 package guestbook;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 /**
@@ -31,27 +32,29 @@ class GuestbookForm {
 
 	private final @NotBlank String name;
 	private final @NotBlank String text;
+	private final @Email String email;
 
 	/**
 	 * Creates a new {@link GuestbookForm} with the given name and text. Spring Framework will use this constructor to
 	 * bind the values provided in the web form described in {@code src/main/resources/templates/guestbook.html}, in
 	 * particular the {@code name} and {@code text} fields as they correspond to the parameter names of the constructor.
 	 * The constructor needs to be public so that Spring will actually consider it for form data binding until
-	 * {@link https://github.com/spring-projects/spring-framework/issues/22600} is resolved.
+	 * <a href="link https://www.github.com/spring-projects/spring-framework/issues/22600">#22600</a> is resolved.
 	 *
 	 * @param name the value to bind to {@code name}
 	 * @param text the value to bind to {@code text}
 	 */
-	public GuestbookForm(String name, String text) {
+	public GuestbookForm(String name, String text, String email) {
 
 		this.name = name;
 		this.text = text;
+		this.email = email;
 	}
 
 	/**
 	 * Returns the value bound to the {@code name} attribute of the request. Needs to be public so that Spring will
 	 * actually consider it for form data binding until
-	 * {@link https://github.com/spring-projects/spring-framework/issues/22600} is resolved.
+	 * <a href="link https://www.github.com/spring-projects/spring-framework/issues/22600">#22600</a> is resolved.
 	 *
 	 * @return the value bound to {@code name}
 	 */
@@ -62,7 +65,7 @@ class GuestbookForm {
 	/**
 	 * Returns the value bound to the {@code text} attribute of the request. Needs to be public so that Spring will
 	 * actually consider it for form data binding until
-	 * {@link https://github.com/spring-projects/spring-framework/issues/22600} is resolved.
+	 * <a href="link https://www.github.com/spring-projects/spring-framework/issues/22600">#22600</a> is resolved.
 	 *
 	 * @return the value bound to {@code text}
 	 */
@@ -71,12 +74,21 @@ class GuestbookForm {
 	}
 
 	/**
+	 * Returns the value bound to the {@code email} attribute of the request. Needs to be public so that Spring will
+	 * actually consider it for form data binding until
+	 * <a href="link https://www.github.com/spring-projects/spring-framework/issues/22600">#22600</a> is resolved.
+	 *
+	 * @return the value bound to {@code email}
+	 */
+	public String getEmail() { return email; }
+
+	/**
 	 * Returns a new {@link GuestbookEntry} using the data submitted in the request.
 	 *
 	 * @return the newly created {@link GuestbookEntry}
 	 * @throws IllegalArgumentException if you call this on an instance without the name and text actually set.
 	 */
 	GuestbookEntry toNewEntry() {
-		return new GuestbookEntry(getName(), getText());
+		return new GuestbookEntry(getName(), getText(), getEmail());
 	}
 }

@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
 
 import org.springframework.util.Assert;
 
@@ -28,13 +29,14 @@ import org.springframework.util.Assert;
  *
  * @author Paul Henke
  * @author Oliver Drotbohm
- * @see https://en.wikipedia.org/wiki/Domain-driven_design#Building_blocks
+ * @see <a href="https://en.wikipedia.org/wiki/Domain-driven_design#Building_blocks">
+ *     https://en.wikipedia.org/wiki/Domain-driven_design#Building_blocks</a>
  */
 @Entity
 class GuestbookEntry {
 
 	private @Id @GeneratedValue Long id;
-	private final String name, text;
+	private final String name, text, email;
 	private final LocalDateTime date;
 
 	/**
@@ -43,22 +45,26 @@ class GuestbookEntry {
 	 * @param name must not be {@literal null} or empty
 	 * @param text must not be {@literal null} or empty
 	 */
-	public GuestbookEntry(String name, String text) {
+	public GuestbookEntry(String name, String text, String email) {
 
 		Assert.hasText(name, "Name must not be null or empty!");
 		Assert.hasText(text, "Text must not be null or empty!");
+		Assert.hasText(email, "Text must not be null or empty!");
 
 		this.name = name;
 		this.text = text;
+		this.email = email;
 		this.date = LocalDateTime.now();
 	}
 
-	@SuppressWarnings("unused")
-	private GuestbookEntry() {
+	public GuestbookEntry() {
 		this.name = null;
 		this.text = null;
+		this.email = null;
 		this.date = null;
 	}
+
+
 
 	public String getName() {
 		return name;

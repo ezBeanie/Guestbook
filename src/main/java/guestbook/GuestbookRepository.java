@@ -36,4 +36,8 @@ interface GuestbookRepository extends CrudRepository<GuestbookEntry, Long> {
 	 * @return all {@link GuestbookEntry}s matching the query
 	 */
 	Streamable<GuestbookEntry> findByName(String name, Sort sort);
+
+	Streamable<GuestbookEntry> findByText(String text);
+
+
 }
