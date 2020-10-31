@@ -81,4 +81,6 @@ class GuestbookEntry {
 	public String getText() {
 		return text;
 	}
+
+	public String getEmail() { return email;	}
 }
